@@ -172,17 +172,6 @@ if not os.path.exists('./img'):
     os.mkdir('./img')
 ```
 
-
-
-    <div class="bk-root">
-        <a href="https://bokeh.pydata.org" target="_blank" class="bk-logo bk-logo-small bk-logo-notebook"></a>
-        <span id="232df6b3-0dee-489b-be7b-2789b1932570">Loading BokehJS ...</span>
-    </div>
-
-
-
-
-
 ```python
 p = bp.figure(tools='pan,wheel_zoom,reset',
               plot_width=int(600),

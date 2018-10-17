@@ -15,7 +15,7 @@ As it turns out, there is. The extraordinary `datashader` library made by the gu
 On one hand, I did this project to familiarize myself with the `datashader` library, and on the other hand, I wanted to make use of the plenty of data published by the Centre for Budapest Transport (BKK). The next few paragraphs can be viewed as a tutorial on making spatial plots with `datashader`, or as an (admittedly superficial) description of Budapest's public transport system.
 
 ## First approach: using GTFS data
-<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/BKK.png" width="300">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/bkk.png" width="300">
 
 The Centre for Budapest Transport (BKK) makes its timetables available in the widely used and public GTFS format (General Transit Feed Specification) to make creating public transport related applications easy for developers. However, this very same data can also be used to analyze and visualize the public transport system of Budapest.
 

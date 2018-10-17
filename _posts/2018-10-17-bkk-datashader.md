@@ -15,7 +15,7 @@ As it turns out, there is. The extraordinary `datashader` library made by the gu
 On one hand, I did this project to familiarize myself with the `datashader` library, and on the other hand, I wanted to make use of the plenty of data published by the Centre for Budapest Transport (BKK). The next few paragraphs can be viewed as a tutorial on making spatial plots with `datashader`, or as an (admittedly superficial) description of Budapest's public transport system.
 
 ## First approach: using GTFS data
-<img src="images/2018-10-17-bkk-datashader/bkk_logo.svg" width="200">
+<img src="assets/img/bkk_logo.svg" width="200">
 
 The Centre for Budapest Transport (BKK) makes its timetables available in the widely used and public GTFS format (General Transit Feed Specification) to make creating public transport related applications easy for developers. However, this very same data can also be used to analyze and visualize the public transport system of Budapest.
 
@@ -205,16 +205,16 @@ def image_callback(x_range, y_range, w, h, color_fn=tf.shade):
     return image
 
 export_image(image_callback(x_range=x_range, y_range=y_range, w=2000, h=2000),
-             filename="images/2018-10-17-bkk-datashader/BUD_schedule_fire", background='black')
+             filename="assets/img/BUD_schedule_fire", background='black')
 InteractiveImage(p, image_callback)
 ```
 
-<img src="images/2018-10-17-bkk-datashader/plot1_snip.png" width="600">
+<img src="assets/img/plot1_snip.png" width="600">
 
 The image you see on this webpage is just a static image due to the limitations of the site engine (or more accurately, my inability to make it work with Bokeh plots), but if you run this example in a notebook, you can pan and zoom interactively. Furthermore, the datashading callback function is run each time, so you get a nicely shaded picture with meaningful colors every time.
 
 ## Second approach: using GPS data
-<img src="images/2018-10-17-bkk-datashader/futar_logo.jpg" width="300">
+<img src="assets/img/futar_logo.jpg" width="300">
 
 In the first part we managed to plot the number of vehicles scheduled to pass through each location on a given day. It is informative as it is, but it does not really represent the average number of vehicles at a given location and at a given time. There are multiple reasons for this. Clearly, the schedule is just a plan, and the actual routes and stop times might vary due to delays an unforeseen events. A more subtle reason is that vehicles do not spend the time on a given route evenly. They spend more time where they must go slower, spend time in stops and spend even more time in terminals.
 
@@ -312,11 +312,11 @@ def image_callback(x_range, y_range, w, h, color_fn=tf.shade):
     return tf.dynspread(image, threshold=0.1, max_px=20)
 
 export_image(image_callback(x_range=x_range, y_range=y_range, w=2000, h=2000),
-             filename="images/2018-10-17-bkk-datashader/BUD_gps_fire", background='black')
+             filename="assets/img/BUD_gps_fire", background='black')
 InteractiveImage(p, image_callback)
 ```
 
-<img src="images/2018-10-17-bkk-datashader/plot2_snip.png" width="600">
+<img src="assets/img/plot2_snip.png" width="600">
 
 The new image is remarkably similar, but there are a few notable differences. Most notably, there are a number of white hotspots where vehicles seem to spend a lot of time. These are usually terminal stations and large traffic junctions, that did not show up this predominantly on our first picture, but must certainly have a large effect on air quality.
 
@@ -374,17 +374,17 @@ def image_callback(x_range, y_range, w, h, color_fn=tf.shade):
     return tf.dynspread(image, threshold=0.1, max_px=20)
 
 export_image(image_callback(x_range=x_range, y_range=y_range, w=2000, h=2000),
-             filename="images/2018-10-17-bkk-datashader/BUD_gps_by_type", background='black')
+             filename="assets/img/BUD_gps_by_type", background='black')
 InteractiveImage(p, image_callback)
 ```
 
-<img src="images/2018-10-17-bkk-datashader/plot3_snip.png" width="600">
+<img src="assets/img/plot3_snip.png" width="600">
 
 That's it for this post.  Hope it was useful and/or interesting for you. Finally, some high-res versions of the above pictures with no map in the background:
 
-* [Plot of the schedules](images/2018-10-17-bkk-datashader/BUD_schedule_fire.png)
-* [Plot of the actual locations](images/2018-10-17-bkk-datashader/BUD_gps_fire.png)
-* [Plot of the actual locations by vehicle type](images/2018-10-17-bkk-datashader/BUD_gps_by_type.png)
+* [Plot of the schedules](assets/img/BUD_schedule_fire.png)
+* [Plot of the actual locations](assets/img/BUD_gps_fire.png)
+* [Plot of the actual locations by vehicle type](assets/img/BUD_gps_by_type.png)
 
 Happy plotting!
 

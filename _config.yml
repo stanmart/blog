@@ -2,10 +2,15 @@
 title:       Something Something
 email:       martin.stancsics@gmail.com
 author:      Martin Stancsics
-description: "Website without a purpose"
+description: "Blog without a purpose"
 baseurl:     ""
 url:         "http://stanmart.github.io"
 date_format: "%b %-d, %Y"
+defaults:
+  - scope:
+      path: "assets/img"
+    values:
+      image: true
 
 # Google services
 google_verification:

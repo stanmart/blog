@@ -72,28 +72,9 @@ trips = pd.read_csv('data/trips.txt', low_memory=False)
 shapes = pd.read_csv('data/shapes.txt', low_memory=False)
 ```
 
-
 ```python
 trips.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |route_id|trip_id|service_id|trip_headsign|direction_id|block_id|shape_id|wheelchair_accessible|bikes_allowed|boarding_door|
 |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
@@ -103,32 +84,9 @@ trips.head()
 |8140|B0571613|B05716AHPKP-0011|Csepel-Királyerdő|1|B05716AHPKP-0011_1|Y702|1|1.0|2.0|
 |8140|B0571614|B05716AHPKP-0011|Soroksár, Molnár-sziget|0|B05716AHPKP-0011_1|Y701|1|1.0|2.0|
 
-</div>
-
-
-
-
 ```python
 shapes.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |shape_id|shape_pt_sequence|shape_pt_lat|shape_pt_lon|shape_dist_traveled|
 |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
@@ -137,10 +95,6 @@ shapes.head()
 |0285|100003|47.519839|19.148638|35.0|
 |0285|100004|47.520584|19.150246|182.0|
 |0285|100005|47.520674|19.150432|199.0|
-
-</div>
-
-
 
 Looks simple enough. If we would like to plot the trafic of the transit network, we just have to aggregate the `trips` table by counting the number of lines by `shape_id`, join the two tables by `shape_id`, and make a line plot.
 
@@ -153,24 +107,6 @@ shapes_with_nums = shapes.merge(num_trips_by_shape, on='shape_id')
 shapes_with_nums.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
 |shape_id|shape_pt_sequence|shape_pt_lat|shape_pt_lon|shape_dist_traveled|trip_count|
 |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
 |0285|100001|47.519630|19.148313|0.0|6|
@@ -178,11 +114,6 @@ shapes_with_nums.head()
 |0285|100003|47.519839|19.148638|35.0|6|
 |0285|100004|47.520584|19.150246|182.0|6|
 |0285|100005|47.520674|19.150432|199.0|6|
-
-
-</div>
-
-
 
 We are almost there, only two minor details are missing.
 
@@ -303,25 +234,6 @@ futar.head()
 ```
 
     11054989
-    
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |Unnamed: 0|...|lastUpdateTime|licensePlate|location|model|...|vehicleRouteType|
 |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
@@ -330,10 +242,6 @@ futar.head()
 |2|...|1539671350|V2112|{'lat': 47.469288, 'lon': 19.082859}|CAF 9 modulos szerelvény|...|TRAM|
 |3|...|1539671351|V4334|{'lat': 47.443512, 'lon': 19.036741}|Tátra T5C5K|...|TRAM|
 |4|...|1539671367|V1442|{'lat': 47.520626, 'lon': 19.036764}|Ganz csuklós|...|TRAM|
-
-
-</div>
-
 
 
 The only thing we need from here are the coordinates (`location`), but unfortunately they are in a rather peculiar format: a string that looks like a dictionary. Also, we will need to convert the latitudes and longitudes into Web-Mercator coordinates again. Let us sort these out and make it into a proper dataframe!

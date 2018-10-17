@@ -15,7 +15,7 @@ As it turns out, there is. The extraordinary `datashader` library made by the gu
 On one hand, I did this project to familiarize myself with the `datashader` library, and on the other hand, I wanted to make use of the plenty of data published by the Centre for Budapest Transport (BKK). The next few paragraphs can be viewed as a tutorial on making spatial plots with `datashader`, or as an (admittedly superficial) description of Budapest's public transport system.
 
 ## First approach: using GTFS data
-<img src="assets/img/bkk_logo.svg" width="200">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/BKK_logo.svg" width="200">
 
 The Centre for Budapest Transport (BKK) makes its timetables available in the widely used and public GTFS format (General Transit Feed Specification) to make creating public transport related applications easy for developers. However, this very same data can also be used to analyze and visualize the public transport system of Budapest.
 
@@ -76,13 +76,13 @@ shapes = pd.read_csv('data/shapes.txt', low_memory=False)
 trips.head()
 ```
 
-|route_id|trip_id|service_id|trip_headsign|direction_id|block_id|shape_id|wheelchair_accessible|bikes_allowed|boarding_door|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|8140|B0571610|B05716AHPKP-0011|Soroksár, Molnár-sziget|0|B05716AHPKP-0011_1|Y701|1|1.0|2.0|
-|8140|B0571611|B05716AHPKP-0011|Csepel-Királyerdő|1|B05716AHPKP-0011_1|Y702|1|1.0|2.0|
-|8140|B0571612|B05716AHPKP-0011|Soroksár, Molnár-sziget|0|B05716AHPKP-0011_1|Y701|1|1.0|2.0|
-|8140|B0571613|B05716AHPKP-0011|Csepel-Királyerdő|1|B05716AHPKP-0011_1|Y702|1|1.0|2.0|
-|8140|B0571614|B05716AHPKP-0011|Soroksár, Molnár-sziget|0|B05716AHPKP-0011_1|Y701|1|1.0|2.0|
+|route_id|trip_id|service_id|...|shape_id|...|boarding_door|
+|--- |--- |--- |--- |--- |--- |--- 
+|8140|B0571610|B05716AHPKP-0011|...|Y701|...|2.0|
+|8140|B0571611|B05716AHPKP-0011|...|Y702|...|2.0|
+|8140|B0571612|B05716AHPKP-0011|...|Y701|...|2.0|
+|8140|B0571613|B05716AHPKP-0011|...|Y702|...|2.0|
+|8140|B0571614|B05716AHPKP-0011|...|Y701|...|2.0|
 
 ```python
 shapes.head()
@@ -205,22 +205,22 @@ def image_callback(x_range, y_range, w, h, color_fn=tf.shade):
     return image
 
 export_image(image_callback(x_range=x_range, y_range=y_range, w=2000, h=2000),
-             filename="assets/img/BUD_schedule_fire", background='black')
+             filename="BUD_schedule_fire", background='black')
 InteractiveImage(p, image_callback)
 ```
 
-<img src="assets/img/plot1_snip.png" width="600">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/plot1_snip.png" width="600">
 
 The image you see on this webpage is just a static image due to the limitations of the site engine (or more accurately, my inability to make it work with Bokeh plots), but if you run this example in a notebook, you can pan and zoom interactively. Furthermore, the datashading callback function is run each time, so you get a nicely shaded picture with meaningful colors every time.
 
 ## Second approach: using GPS data
-<img src="assets/img/futar_logo.jpg" width="300">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/futar_logo.jpg" width="300">
 
 In the first part we managed to plot the number of vehicles scheduled to pass through each location on a given day. It is informative as it is, but it does not really represent the average number of vehicles at a given location and at a given time. There are multiple reasons for this. Clearly, the schedule is just a plan, and the actual routes and stop times might vary due to delays an unforeseen events. A more subtle reason is that vehicles do not spend the time on a given route evenly. They spend more time where they must go slower, spend time in stops and spend even more time in terminals.
 
 Whether we are interested in the number of vehicles passing or the average number of vehicles at a given location (or alternatively, the probability density of vehicle locations) depends on the question we are trying to answer. For example, if we are analysing the amortization of the road surface, the former metric seems quite useful. On the other hand, if we would like to say something about air pollution, the latter one is the way to go.
 
-To plot the density of vehicle loccations, we need different data: the locations of vehicles during a given day. Furtunately, in addition to publishing the timetables in GTFS format, BKK also track the location of its buses, trolleybuses trams and ferries in real time (sadly, no data on the metro), so that websites and applications [like this](http://futar.bkk.hu/?map=16/47.50955/19.03137&layers=GSVB) are possible. We can use it to query tthe location of each active vehicle at a regular interval, and then we can simply make a scatterplot of the resulting (quite sizeable) database. It is exactly what I have done (apart from a five-minute-long internet hiatus), and you can download the data in csv format [from here](drive link)  (Google Drive link, might not be up indefinitely). Be advised that the file is quite large (around 2 GiB).
+To plot the density of vehicle loccations, we need different data: the locations of vehicles during a given day. Furtunately, in addition to publishing the timetables in GTFS format, BKK also track the location of its buses, trolleybuses trams and ferries in real time (sadly, no data on the metro), so that websites and applications [like this](http://futar.bkk.hu/?map=16/47.50955/19.03137&layers=GSVB) are possible. We can use it to query tthe location of each active vehicle at a regular interval, and then we can simply make a scatterplot of the resulting (quite sizeable) database. It is exactly what I have done (apart from a five-minute-long internet hiatus), and you can download the data in a zipped csv [from here](https://drive.google.com/file/d/1lx9pN1TURCczB2rbcJaFU1Eg42gonmZu/view?usp=sharing)  (Google Drive link, might not be up indefinitely).
 
 If you are feeling adventurous, you can also try getting the data for yourself. You can find some details on how to do this at the end of this post.
 
@@ -257,24 +257,6 @@ gps_data = pd.DataFrame({'coord_x': x_coords, 'coord_y': y_coords})
 gps_data.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
 |coord_x|coord_y|
 |--- |--- |--- |--- |--- |--- |--- |
 |2.125788e+06|6.014221e+06|
@@ -282,9 +264,6 @@ gps_data.head()
 |2.124294e+06|6.019013e+06|
 |2.119160e+06|6.014769e+06|
 |2.119163e+06|6.027471e+06|
-
-</div>
-
 
 
 We are set now, on to the plot! The drill is the same as before, we just replace `cvs.line` with `cvs.points`.
@@ -312,11 +291,11 @@ def image_callback(x_range, y_range, w, h, color_fn=tf.shade):
     return tf.dynspread(image, threshold=0.1, max_px=20)
 
 export_image(image_callback(x_range=x_range, y_range=y_range, w=2000, h=2000),
-             filename="assets/img/BUD_gps_fire", background='black')
+             filename="BUD_gps_fire", background='black')
 InteractiveImage(p, image_callback)
 ```
 
-<img src="assets/img/plot2_snip.png" width="600">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/plot2_snip.png" width="600">
 
 The new image is remarkably similar, but there are a few notable differences. Most notably, there are a number of white hotspots where vehicles seem to spend a lot of time. These are usually terminal stations and large traffic junctions, that did not show up this predominantly on our first picture, but must certainly have a large effect on air quality.
 
@@ -374,17 +353,17 @@ def image_callback(x_range, y_range, w, h, color_fn=tf.shade):
     return tf.dynspread(image, threshold=0.1, max_px=20)
 
 export_image(image_callback(x_range=x_range, y_range=y_range, w=2000, h=2000),
-             filename="assets/img/BUD_gps_by_type", background='black')
+             filename="BUD_gps_by_type", background='black')
 InteractiveImage(p, image_callback)
 ```
 
-<img src="assets/img/plot3_snip.png" width="600">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/plot3_snip.png" width="600">
 
 That's it for this post.  Hope it was useful and/or interesting for you. Finally, some high-res versions of the above pictures with no map in the background:
 
-* [Plot of the schedules](assets/img/BUD_schedule_fire.png)
-* [Plot of the actual locations](assets/img/BUD_gps_fire.png)
-* [Plot of the actual locations by vehicle type](assets/img/BUD_gps_by_type.png)
+* [Plot of the schedules](https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/BUD_schedule_fire.png)
+* [Plot of the actual locations](https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/BUD_gps_fire.png)
+* [Plot of the actual locations by vehicle type](https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/BUD_gps_by_type.png)
 
 Happy plotting!
 

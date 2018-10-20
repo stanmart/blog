@@ -10,7 +10,7 @@ Plotting stuff is fun. Plotting stuff on top of maps is even more fun. Even bett
 
 Plotting large datasets is also a lot of fun, but sadly, it is difficult. One has to fiddle with sampling, opacity, and various parameters to visualize datasets over a million points. Isn't there a better way?
 
-As it turns out, there is. The extraordinary `datashader` library made by the people at Anaconda Inc might be a game changer for meaningfully visualizing large datasets. This write up is inspired by the [NYC taxi example](http://datashader.org/topics/nyc_taxi.html) at the wonderful [PyViz](http://pyviz.org/) website.
+As it turns out, there is. The extraordinary `datashader` library made by the guys at Continuum Analytics might be a game changer for meaningfully visualizing large datasets. This write up is inspired by the [NYC taxi example](http://datashader.org/topics/nyc_taxi.html) at the wonderful [PyViz](http://pyviz.org/) website.
 
 On one hand, I did this project to familiarize myself with the `datashader` library, and on the other hand, I wanted to make use of the plenty of data published by the Centre for Budapest Transport (BKK). The next few paragraphs can be viewed as a tutorial on making spatial plots with `datashader`, or as an (admittedly superficial) description of Budapest's public transport system.
 

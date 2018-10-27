@@ -114,11 +114,11 @@ Next, the methods handling the database. The `CREATE TABLE IF NOT EXISTS` ensure
 
 ```python
     def init_database(self):
-        """Open the connection to an sqlite database, and create the table databank
+        """Open the connection to an sqlite database, and create the table articles
            if it does not exist."""
         conn = sqlite3.connect(self.database_path)
         c = self.conn.cursor()
-        c.execute('''CREATE TABLE IF NOT EXISTS databank
+        c.execute('''CREATE TABLE IF NOT EXISTS articles
                      (an INTEGER, author TEXT, title TEXT, jel TEXT, keywords TEXT)''')
         conn.commit()
         return (conn, c)
@@ -126,7 +126,7 @@ Next, the methods handling the database. The `CREATE TABLE IF NOT EXISTS` ensure
     def enter_into_db(self, dct):
         """Enter data from a dictionary into the open sqlite database."""
         try:
-            self.c.execute('''INSERT INTO databank (an, author, title, jel, keywords)
+            self.c.execute('''INSERT INTO articles (an, author, title, jel, keywords)
                             VALUES (?, ?, ?, ?, ?)''', 
                             (dct['an'], dct['author'], dct['title'], dct['jel'], dct['keywords'])
                       )

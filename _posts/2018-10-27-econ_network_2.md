@@ -176,7 +176,7 @@ We can use the `%%opts` ipython magic to set some display properties, and also t
 datashade(graph, normalization='eq_hist', cmap='cyan', width=600, height=600) * graph.nodes
 ```
 
-<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/count_edges.png" width="600">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/count_edges.png" width="600">
 
 
 ```python
@@ -185,7 +185,7 @@ datashade(graph, normalization='eq_hist', cmap='cyan', width=600, height=600) * 
 datashade(bundled_graph, normalization='eq_hist', cmap='cyan', width=600, height=600) * bundled_graph.nodes
 ```
 
-<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/count_bundled.png" width="600">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/count_bundled.png" width="600">
 
 Not a bad start, but not perfect either. You might have noticed, that we did not use the edge weights, therefore the edge shades  represent the number of edges, not the sum of their weights. Unfortunately, shading based on the sum of weights is not as easy as I would like it to be. The problem is that the `edgepaths`attribute of a `Graph` object (which is an `EdgePath` object itself) does not contain the weight. As the `datashade` function gets this object for shading the nodes, it cannot see the weights, and as a result, supplying `datashader.sum(Weight)` as an aggregation function will not work.
 
@@ -211,7 +211,7 @@ datashade(edge_paths, normalization='eq_hist', cmap='cyan', width=600, height=60
     bundled_graph.nodes
 ```
 
-<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/sum_edges.png" width="600">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/sum_edges.png" width="600">
 
 
 ```python
@@ -221,7 +221,7 @@ datashade(bundled_paths, normalization='eq_hist', cmap='cyan', width=600, height
     bundled_graph.nodes
 ```
 
-<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/sum_bundled.png" width="600">
+<img src="https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/sum_bundled.png" width="600">
 
 ## Further refinements
 
@@ -229,11 +229,11 @@ Almost there. The last detail would be to color the edges using the colors of th
 
 First, the dataframes resulting from the `connect_edges` and `hammer_bundle` functions do not have an id by default, so joining them to node or edge attributes is not straightforward. The two functions have an `include_edge_id` argument, which sounds like it should solve this, but setting it to either `True` or the name of a column crashes the interpreter (at least in this example). Might be a bug. Nevertheless, one could certainly write a custom `connect_edges` function, and probably joining edge attributes to the result of `hammer_bundle` is also feasible, but it would be an awful lot of bother.
 
-Another problem is that there is no `sum_cat` aggregation function in datashader. There is `count_cat`, but then we lose the weight information. We could also shade the categories separately and `stack` them on top of each other, but ~~then the stacking order would matter a lot~~ (correction: using the `how='add'` argument, it would not). Neither of these options is optimal.
+Another problem is that there is no `sum_cat` aggregation function in datashader. There is `count_cat`, but then we lose the weight information. We could also shade the categories separately and `stack` them on top of each other, but ~~then the stacking order would matter a lot~~ (correction: by using the `how='add'` argument it would not). Neither of these options is optimal.
 
-What we did back then was exporting the network to a `graphml` file, and loading it into [Gephi](https://gephi.org/) (a graph visualization tool) to make the visualization. It is a WYSIWYG-type program, so we could easily fiddle around with various parameters until we got the desired result. I think the final product is pretty good. You can find an `svg` version [here](https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/full_graph.svg).
+What we did back then was exporting the network to a `graphml` file, and loading it into [Gephi](https://gephi.org/) (a graph visualization tool) to make the visualization. It is a WYSIWYG-type program, so we could easily fiddle around with various parameters until we got the desired result. I think the final product is pretty good. You can find an `svg` version [here](https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/full_graph.svg).
 
-![Gephi image](https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/full_graph.png)
+![Gephi image](https://raw.githubusercontent.com/stanmart/stanmart.github.io/master/assets/img/econ_network/full_graph.png)
 
 While the fact that the final chapter in a Python dataviz article is to use another software for better results might seem a litle dispiriting at first, i think the main takaway is this: *use the right tool for the job*. For visualizing this moderate-sized network, the right tool seems to be a dedicated graph visualization software.
 

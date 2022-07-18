@@ -5,4 +5,4 @@ permalink: /about/
 tags: about
 ---
 
-I am an economist (and hopefully a soon-to-be PhD student) currently working at the Central Bank of Hungary. I like data visualization, machine learning, behavioral economics and dogs.
+Hi! I am a PhD candidate at the University of Zürich. I like industrial organization, behavioral economics, natural language processing, data visualization, and dogs.
